@@ -4,6 +4,7 @@ import {
     FaUser,
     FaUserMd,
     FaUsers,
+
     FaEnvelope,
 } from "react-icons/fa";
 import "../styles/sidebar.css";
@@ -44,6 +45,11 @@ const Sidebar = () => {
             path: "/dashboard/aprofile",
             icon: <FaUser />,
         },
+        {
+            name : "Register doctor",
+            path : "/admin/register-doctor",
+            icon : <FaUser />
+        }
     ];
 
     const logoutFunc = () => {

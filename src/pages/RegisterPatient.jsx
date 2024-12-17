@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerPatient } from "../services/Service.js";
+import Footer from "../components/Footer.jsx";
 
 const RegisterPatient = () => {
   const [formData, setFormData] = useState({
@@ -70,6 +71,7 @@ const RegisterPatient = () => {
   };
 
   return (
+      <>
       <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
         <div className="max-w-4xl w-full mx-auto border border-gray-300 rounded-2xl p-8 bg-white shadow-md">
           <div className="text-center mb-8">
@@ -243,6 +245,7 @@ const RegisterPatient = () => {
           </form>
         </div>
       </div>
+      </>
   );
 };
 

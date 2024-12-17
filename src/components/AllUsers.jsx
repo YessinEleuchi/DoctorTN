@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllUsers, deleteUser, updateUser } from "../../services/Service";
+import { getAllUsers, deleteUser, updateUser } from "../services/Service.js";
 
 const AllUsers = () => {
     const [users, setUsers] = useState([]);
@@ -11,9 +11,8 @@ const AllUsers = () => {
         const fetchUsers = async () => {
             try {
                 const response = await getAllUsers(page, 10);
-                console.log("API Response:", response.data);
                 setUsers(response.data.users || []);
-                setTotalUsers(response.data.users || 0);
+                setTotalUsers(response.data.totalCount || 0);
             } catch (error) {
                 console.error("Error fetching users:", error);
                 setUsers([]);
@@ -54,34 +53,31 @@ const AllUsers = () => {
     };
 
     return (
-        <div className="p-4 bg-gray-50 min-h-screen">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">All Users</h2>
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow">
-                    <thead>
-                    <tr className="bg-gray-100 text-gray-600 text-left uppercase text-sm">
-                        <th className="py-3 px-4">ID</th>
-                        <th className="py-3 px-4">Username</th>
-                        <th className="py-3 px-4">Email</th>
-                        <th className="py-3 px-4">Roles</th>
-                        <th className="py-3 px-4">Actions</th>
+        <div className="p-6 bg-gray-50 min-h-screen">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">User Management</h2>
+            <div className="overflow-x-auto shadow-md rounded-lg bg-white">
+                <table className="w-full text-left border-collapse">
+                    <thead className="bg-gray-100">
+                    <tr>
+                        <th className="py-3 px-6 font-medium text-gray-600">ID</th>
+                        <th className="py-3 px-6 font-medium text-gray-600">Username</th>
+                        <th className="py-3 px-6 font-medium text-gray-600">Email</th>
+                        <th className="py-3 px-6 font-medium text-gray-600">Roles</th>
+                        <th className="py-3 px-6 font-medium text-gray-600">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {Array.isArray(users) && users.length > 0 ? (
+                    {users.length > 0 ? (
                         users.map((user) => (
-                            <tr
-                                key={user.id}
-                                className="border-t border-gray-200 hover:bg-gray-50"
-                            >
-                                <td className="py-3 px-4">{user.id}</td>
-                                <td className="py-3 px-4">{user.userName}</td>
-                                <td className="py-3 px-4">{user.email}</td>
-                                <td className="py-3 px-4">{user.roles.join(", ")}</td>
-                                <td className="py-3 px-4">
+                            <tr key={user.id} className="border-b hover:bg-gray-50">
+                                <td className="py-3 px-6">{user.id}</td>
+                                <td className="py-3 px-6">{user.userName}</td>
+                                <td className="py-3 px-6">{user.email}</td>
+                                <td className="py-3 px-6">{user.roles.join(", ")}</td>
+                                <td className="py-3 px-6 flex gap-2">
                                     <button
                                         onClick={() => handleDelete(user.userName)}
-                                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mr-2"
+                                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                                     >
                                         Delete
                                     </button>
@@ -96,10 +92,7 @@ const AllUsers = () => {
                         ))
                     ) : (
                         <tr>
-                            <td
-                                colSpan="5"
-                                className="py-3 px-4 text-center text-gray-500"
-                            >
+                            <td colSpan="5" className="py-6 text-center text-gray-500">
                                 No users found.
                             </td>
                         </tr>
@@ -108,7 +101,7 @@ const AllUsers = () => {
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-6">
                 <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
@@ -134,13 +127,13 @@ const AllUsers = () => {
             </div>
 
             {editingUser && (
-                <div className="mt-6 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                <div className="mt-8 p-6 bg-white border rounded-lg shadow-md">
+                    <h3 className="text-lg font-semibold mb-4">
                         Update User: {editingUser.userName}
                     </h3>
                     <form onSubmit={handleUpdate} className="space-y-4">
                         <div>
-                            <label className="block text-gray-700">Email:</label>
+                            <label className="block text-gray-700 mb-1">Email:</label>
                             <input
                                 type="email"
                                 value={editingUser.email}
@@ -151,10 +144,10 @@ const AllUsers = () => {
                                     })
                                 }
                                 required
-                                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
+                                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
                             />
                         </div>
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-4">
                             <button
                                 type="submit"
                                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
