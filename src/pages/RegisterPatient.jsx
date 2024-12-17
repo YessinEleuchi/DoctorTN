@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerPatient } from "../../services/Service.js";
+import { registerPatient } from "../services/Service.js";
 
 const RegisterPatient = () => {
   const [formData, setFormData] = useState({

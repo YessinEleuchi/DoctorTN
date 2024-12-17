@@ -13,7 +13,7 @@ const AllUsers = () => {
                 const response = await getAllUsers(page, 10);
                 console.log("API Response:", response.data);
                 setUsers(response.data.users || []);
-                setTotalUsers(response.data.totalUsers || 0);
+                setTotalUsers(response.data.users || 0);
             } catch (error) {
                 console.error("Error fetching users:", error);
                 setUsers([]);

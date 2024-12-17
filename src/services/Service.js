@@ -20,7 +20,7 @@ export const registerPatient = async (patientData) => {
 };
 
 export const login = async (loginData) => {
-  return await axios.post("http://localhost:5259/api/Authentication/Login", loginData);
+  return await axios.post(`${API_BASE_URL}Authentication/Login`, loginData);
 };
 
 export const logout = async () => {

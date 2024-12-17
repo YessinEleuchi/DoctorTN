@@ -16,6 +16,9 @@ const DashboardAdmin = () => {
             <li>
               <Link to="/admin/all-users">All Users</Link>
             </li>
+              <li>
+                  <Link to="/doctors">All Doctors</Link>
+              </li>
           </ul>
         </nav>
       </div>
